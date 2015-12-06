@@ -1,18 +1,11 @@
 package com.project.ws.representation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-@XmlRootElement(name = "CustomerAddress")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Component
 public class CustAddrRepresentation extends AbstractRepresentation {
 	

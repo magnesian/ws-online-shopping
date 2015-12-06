@@ -104,6 +104,7 @@ public class ReviewActivity {
 			reviewRepresentation.setCustomerName(customerRepository.findOne(review.getCustId()).getCustFirstname());
 		reviewRepresentation.setRating(review.getRating());
 		reviewRepresentation.setReviewDesc(review.getReviewDesc());
+		reviewRepresentation.setReviewId(review.getReviewId());
 		setLinks(reviewRepresentation);
 		return reviewRepresentation;
 	}
@@ -124,7 +125,8 @@ public class ReviewActivity {
 	
 	private void setLinks(ReviewRepresentation reviewRepresentation) {
 		Link product = new Link("get", baseUrl + "/product?name=", "searchProduct", mediaType);
-		reviewRepresentation.setLinks(product);
+		Link showAllProduct = new Link("get", baseUrl + "/products", "showAll", mediaType);
+		reviewRepresentation.setLinks(product, showAllProduct);
 	}
 	
 }

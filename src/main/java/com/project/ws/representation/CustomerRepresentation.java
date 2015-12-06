@@ -1,17 +1,8 @@
 package com.project.ws.representation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
-@XmlRootElement(name = "Customer")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Component
 public class CustomerRepresentation extends AbstractRepresentation {
@@ -21,6 +12,7 @@ public class CustomerRepresentation extends AbstractRepresentation {
 	private String custLastName;
 	private String custEmail;
 	private String message;
+	private String activeFlag;
 	
 	public CustomerRepresentation() {
 	}
@@ -64,6 +56,16 @@ public class CustomerRepresentation extends AbstractRepresentation {
 		return this.message;
 	}
 	
+	public String getActiveFlag() {
+		return activeFlag;
+	}
+
+
+	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag;
+	}
+
+
 	@Override
 	public String toString() {
 		return this.custId + "-" + this.custFirstname + "-" + this.custLastName + "-" + this.custEmail;

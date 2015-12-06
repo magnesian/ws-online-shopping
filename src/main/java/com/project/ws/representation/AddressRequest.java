@@ -2,7 +2,10 @@ package com.project.ws.representation;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Component
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressRequest {
 
 	private Integer customerId;
