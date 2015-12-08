@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -war target/ws-online-shopping-0.1.0.war
+web: java -Dserver.port=$PORT -jar target/ws-online-shopping-0.1.0.war
