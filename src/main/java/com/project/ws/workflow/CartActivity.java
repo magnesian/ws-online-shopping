@@ -34,7 +34,7 @@ public class CartActivity {
 		this.prodRepo = prodRepo;
 	}
 	
-	private final String baseUrl = "http://localhost:8080";
+	private final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	private final String mediaType = "application/json";
 	
 	public StringRepresentation buyProduct(CartRequest cartRequest) {

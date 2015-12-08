@@ -28,7 +28,7 @@ public class ProductActivity {
 
 	private final ProductRepository prodRepo;
 	private final VendorRepository vendorRepo;
-	private final String baseUrl = "http://localhost:8080";
+	private final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	private final String mediaType = "application/json";
 	
 	@Autowired

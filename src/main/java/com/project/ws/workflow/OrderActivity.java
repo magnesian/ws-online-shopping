@@ -69,9 +69,8 @@ public class OrderActivity {
 	
 	private final VendorRepository vendorRepo;
 	
-	private final String baseUrl = "http://localhost:8080";
+	private final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	private final String mediaType = "application/json";
-	
 	
 	@Autowired
 	public OrderActivity(VendorRepository vendorRepo, OrderRepository orderRepo, CustomerRepository custRepo, CustomerBillingRepository billRepo, CustomerAddressRepository addrRepo, ProductRepository prodRepo, CartRepository cartRepo, OrderLineItemRepository orderLineRepo) {
@@ -83,6 +82,7 @@ public class OrderActivity {
 		this.cartRepo = cartRepo;
 		this.orderLineRepo = orderLineRepo;
 		this.custRepo = custRepo;
+
 	}
 	
 	public StringRepresentation placeOrder(Integer customerId) {
@@ -247,6 +247,7 @@ public class OrderActivity {
 		Product product = prodRepo.findByProductId(ol.getProductId());
 		orderLineRepresentation.setProductName(product.getName());
 		return orderLineRepresentation;
+		
 	}
 	
 

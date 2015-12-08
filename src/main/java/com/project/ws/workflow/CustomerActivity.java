@@ -28,7 +28,7 @@ public class CustomerActivity {
 	@Autowired
 	CustomerRepresentation customerRepresentation;
 	
-	private static final String baseUrl = "http://localhost:8080";
+	private static final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	private static final String mediaType = "application/json";
 	
 	@Autowired
