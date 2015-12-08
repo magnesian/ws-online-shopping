@@ -65,26 +65,13 @@ public class VendorActivity {
 		return mapRepresentation(vendor);
 	}
 	
-	public String updateName(Integer vendorId, String name) {
-		Integer count = vendorRepo.updateVendorName(vendorId, name);
-		if(count == 0)
-			return "Error updating Vendor " + vendorId;
-		else
-			return "Vendor Name updated Successfully to - " + name + " for " + vendorId;
-	}
-	
 	public VendorRepresentation updateAddress(VendorRequest vendorRequest) {
 		vendor = mapRequest(vendorRequest);
 		vendorRepo.updateAddress(vendor);
 		vendor = vendorRepo.findOne(vendorRequest.getVendorId());
 		return mapRepresentation(vendor);
 	}
-	
-	public Integer deleteVendor(Integer vendorId) {
-//		vendorRepo.updateStatus(vendorId, "N");
-		Integer count = vendorRepo.deleteVendor(vendorId);
-		return count;
-	}
+
 	
 	public Boolean validateVendor(Integer vendorId) {
 		Vendor v = vendorRepo.findOne(vendorId);

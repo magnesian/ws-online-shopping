@@ -78,12 +78,12 @@ public class ProductController {
 	 * POST to add a new product
 	 */
 	@RequestMapping(value="/product/add", method=RequestMethod.POST)
-    public ProductRepresentation addProduct(@RequestBody ProductRequest productRequest) {
-		ProductRepresentation productRepresentation = new ProductRepresentation();
+    public StringRepresentation addProduct(@RequestBody ProductRequest productRequest) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
 		if(vendorActivity.validateVendor(productRequest.getVendorId()) == false)
 			throw new VendorNotFoundException(productRequest.getVendorId());
-		productRepresentation = productActivity.addProduct(productRequest);
-		return productRepresentation;
+		stringRepresentation = productActivity.addProduct(productRequest);
+		return stringRepresentation;
     }
 
 	/*

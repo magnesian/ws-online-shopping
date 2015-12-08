@@ -22,7 +22,14 @@ import com.project.ws.representation.StringRepresentation;
 class GlobalController {
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler({com.project.ws.service.CustomerNotFoundException.class, NumberFormatException.class, java.lang.IllegalStateException.class})
+	@ExceptionHandler({
+		com.project.ws.service.CustomerNotFoundException.class, 
+		NumberFormatException.class, 
+		java.lang.IllegalStateException.class,
+		com.project.ws.service.ProductNotFoundException.class,
+		com.project.ws.service.VendorNotFoundException.class,
+		com.project.ws.service.OrderNotFoundException.class
+		})
     public @ResponseBody StringRepresentation handleCustomerNotFoundException(HttpServletRequest request, RuntimeException ex) {
 //		String message = "";
 //		if(ex.getMessage() != null)
@@ -56,7 +63,8 @@ class GlobalController {
 		return stringRepresentation;
     }
 	
-	@ExceptionHandler({Exception.class,
+	@ExceptionHandler({
+		Exception.class,
 		org.springframework.http.converter.HttpMessageNotWritableException.class, 
 		org.springframework.beans.ConversionNotSupportedException.class
 		})
@@ -70,7 +78,8 @@ class GlobalController {
 		return stringRepresentation;
     }	
 	
-	@ExceptionHandler({org.springframework.http.converter.HttpMessageNotReadableException.class, 
+	@ExceptionHandler({
+		org.springframework.http.converter.HttpMessageNotReadableException.class, 
 		org.springframework.web.client.HttpClientErrorException.class, 
 		org.springframework.web.bind.MissingServletRequestParameterException.class, 
 		org.springframework.web.bind.ServletRequestBindingException.class, 
@@ -89,7 +98,9 @@ class GlobalController {
 		return stringRepresentation;
     }
 
-	@ExceptionHandler({org.springframework.web.HttpMediaTypeNotSupportedException.class})
+	@ExceptionHandler({
+		org.springframework.web.HttpMediaTypeNotSupportedException.class
+		})
 	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     public @ResponseBody StringRepresentation handleMediaTypeNotSupportedException(HttpServletRequest request, HttpMediaTypeNotSupportedException ex) {
 		StringRepresentation stringRepresentation = new StringRepresentation();

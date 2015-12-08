@@ -76,33 +76,6 @@ public class VendorController {
 		return vendorRepresentation;
 	}
 
-	/*
-	 * PUT to update vendor Name using vendorId
-	 */
-	@RequestMapping(value="/vendor/", method=RequestMethod.PUT, params={"vendorId", "vendorName"})
-	public @ResponseBody String updateVendorName(HttpServletRequest request) {
-		String vendorName = request.getParameter("vendorName");
-		Integer vendorId = Integer.parseInt(request.getParameter("vendorId"));
-		if(vendorActivity.validateVendor(vendorId) == false) 
-			throw new VendorNotFoundException(vendorId);
-		return vendorActivity.updateName(vendorId, vendorName);
-	}
-	
-	/*
-	 * DELETE to delete vendor information using vendorId
-	 */
-	@RequestMapping(value="/vendor", method=RequestMethod.DELETE, params="vendorId")
-	public @ResponseBody String deleteVendor(HttpServletRequest request) {
-		Integer count = 0;
-		Integer vendorId = Integer.parseInt(request.getParameter("vendorId"));
-		if(vendorActivity.validateVendor(vendorId) == false) 
-			throw new VendorNotFoundException(vendorId);
-		count = vendorActivity.deleteVendor(vendorId);
-		if(count == 1)
-			return "Vendor Deleted Successfully";
-		else
-			return "Error deleting vendor. Please check the logs.";
-	}
 	
 	/*
 	 * PUT to settle vendor account

@@ -109,12 +109,12 @@ public class CustomerController {
 	 */
 	@RequestMapping(value="/customer", method=RequestMethod.DELETE, params="customerId")
     public @ResponseBody StringRepresentation deleteCustomer(HttpServletRequest request) {
-		StringRepresentation message;
+		StringRepresentation stringRepresentation;
 		Integer customerId = Integer.parseInt(request.getParameter("customerId"));
 		if(customerActivity.validateCustomer(customerId) == false)
 			throw new CustomerNotFoundException(customerId);
-		message = customerActivity.deleteCustomer(customerId);
-		return message;
+		stringRepresentation = customerActivity.deleteCustomer(customerId);
+		return stringRepresentation;
     }
 	
 	/*

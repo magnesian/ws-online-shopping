@@ -92,16 +92,16 @@ public class ProductActivity {
 		return resultList;
 	}
 	
-	public ProductRepresentation addProduct(ProductRequest productRequest) {
+	public StringRepresentation addProduct(ProductRequest productRequest) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
 		mapRequest(productRequest);
 		Integer count = prodRepo.addProduct(product);
-		Vendor vendor = new Vendor();
-		String vendorName = "";
-		if(count == 1) {
-			vendor = vendorRepo.findOne(productRequest.getVendorId());
-			vendorName = vendor.getVendorName();
-		}
-		return mapProductRepresentation(product, vendorName, true);
+		if(count == 1)
+			stringRepresentation.setMessage("Product Added Successfully");
+		else
+			stringRepresentation.setMessage("Error Updating Product");
+		setLinks(stringRepresentation, productRequest.getVendorId());
+		return stringRepresentation;
 	}
 
 	public StringRepresentation updateProduct(ProductRequest productRequest) {
@@ -177,7 +177,7 @@ public class ProductActivity {
 		Link addProduct = new Link("post", baseUrl + "/product/add", "addProduct", mediaType);
 		Link reviewsToShow = new Link("get", baseUrl + "/review/view?productId=" + prodRepresentation.getProductId(), "showReviews", mediaType);
 		Link deleteProduct = new Link("delete", baseUrl + "/product/delete?productId=" + prodRepresentation.getProductId(), "deleteProduct", mediaType);
-		Link updateProduct = new Link("put", baseUrl + "/product?productId=" + prodRepresentation.getProductId(), "updateProduct", mediaType);
+		Link updateProduct = new Link("put", baseUrl + "/product?productId=" + prodRepresentation.getProductId(), "updateProduct", mediaType);	
 		prodRepresentation.setLinks(addProduct, deleteProduct, updateProduct, reviewsToShow);
 	}
 }
