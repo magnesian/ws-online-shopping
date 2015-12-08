@@ -29,8 +29,8 @@ public class Application extends SpringBootServletInitializer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("*");
-                registry.addMapping("/**").allowedOrigins("http://localhost:8090");
-                registry.addMapping("/**").allowedOrigins("http://localhost:8081");
+                registry.addMapping("/**").allowedOrigins("http://localhost:8090").allowedMethods("GET", "PUT", "POST", "DELETE");
+                registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedMethods("GET", "PUT", "POST", "DELETE");
                 registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "PUT", "POST", "DELETE");
             }
         };
