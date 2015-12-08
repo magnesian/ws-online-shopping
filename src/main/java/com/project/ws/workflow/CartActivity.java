@@ -35,11 +35,11 @@ public class CartActivity {
 		this.prodRepo = prodRepo;
 	}
 	
-//	@Value("${baseURL}")
-	private String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
+	@Value("${baseURL}")
+	private String baseUrl;
 	
-//	@Value("${mediaType}")
-	private String mediaType = "mediaType";
+	@Value("${mediaType}")
+	private String mediaType;
 	
 	public StringRepresentation buyProduct(CartRequest cartRequest) {
 		Boolean check = false;

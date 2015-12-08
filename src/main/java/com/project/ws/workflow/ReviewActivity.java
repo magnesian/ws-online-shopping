@@ -30,11 +30,11 @@ public class ReviewActivity {
 //	private final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 //	private static final String mediaType = "application/json";
 
-//	@Value("${baseURL}")
-	private String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
+	@Value("${baseURL}")
+	private String baseUrl;
 	
-//	@Value("${mediaType}")
-	private String mediaType = "mediaType";
+	@Value("${mediaType}")
+	private String mediaType;
 	
 	@Autowired
 	Review review;

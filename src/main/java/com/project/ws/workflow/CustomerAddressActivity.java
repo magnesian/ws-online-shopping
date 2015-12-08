@@ -23,11 +23,11 @@ import com.project.ws.representation.StringRepresentation;
 @Service
 public class CustomerAddressActivity {
 
-//	@Value("${baseURL}")
-	private String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
+	@Value("${baseURL}")
+	private String baseUrl;
 	
-//	@Value("${mediaType}")
-	private String mediaType = "mediaType";
+	@Value("${mediaType}")
+	private String mediaType;
 	
 	private final CustomerAddressRepository addrRepo;
 	
