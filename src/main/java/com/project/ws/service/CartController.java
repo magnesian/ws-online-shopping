@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import com.project.ws.workflow.CustomerActivity;
 import com.project.ws.workflow.OrderActivity;
 import com.project.ws.workflow.ProductActivity;
 
+@CrossOrigin
 @RestController
 public class CartController {
 

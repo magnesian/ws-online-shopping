@@ -27,7 +27,7 @@ import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.ProductActivity;
 import com.project.ws.workflow.VendorActivity;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8090")
 @RestController
 public class ProductController {
 	

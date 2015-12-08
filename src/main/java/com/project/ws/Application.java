@@ -32,6 +32,7 @@ public class Application extends SpringBootServletInitializer {
                 registry.addMapping("/**").allowedOrigins("http://localhost:8090").allowedMethods("GET", "PUT", "POST", "DELETE");
                 registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedMethods("GET", "PUT", "POST", "DELETE");
                 registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "PUT", "POST", "DELETE");
+                registry.addMapping("/**");
             }
         };
     } 
