@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import com.project.ws.representation.ReviewRequest;
 import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.ReviewActivity;
 
+@CrossOrigin
 @RestController
 public class ReviewController {
 
