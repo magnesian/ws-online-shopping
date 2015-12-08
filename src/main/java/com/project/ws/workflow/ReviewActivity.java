@@ -78,6 +78,10 @@ public class ReviewActivity {
 		List<Review> reviewList = new ArrayList<Review>();
 		List<ReviewRepresentation> resultList = new ArrayList<ReviewRepresentation>();
 		reviewList = reviewRepo.findByProductId(productId);
+		if(reviewList.size() == 0) {
+			Review review = new Review();
+			reviewList.add(review);
+		}
 		for(Review r:reviewList) {
 			resultList.add(mapRepresentation(r));
 		}
@@ -98,6 +102,7 @@ public class ReviewActivity {
 		reviewRepresentation = new ReviewRepresentation();
 		if(review.getProductId() != null)
 			reviewRepresentation.setProductName(prodRepo.findOne(review.getProductId()).getName());
+		reviewRepresentation.setProductId(review.getProductId());
 		if(review.getVendorId() != null)
 			reviewRepresentation.setVendorName(vendorRepo.findOne(review.getVendorId()).getVendorName());
 		if(review.getCustId() != null)
@@ -123,8 +128,8 @@ public class ReviewActivity {
 	}
 	
 	private void setLinks(ReviewRepresentation reviewRepresentation) {
-		Link product = new Link("get", baseUrl + "/product?name=", "searchProduct", mediaType);
-		reviewRepresentation.setLinks(product);
+		Link reviewToAdd = new Link("post", baseUrl + "/review/add", "addReview", mediaType);
+		reviewRepresentation.setLinks(reviewToAdd);
 	}
 	
 }

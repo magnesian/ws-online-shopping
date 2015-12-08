@@ -22,6 +22,7 @@ import com.project.ws.domain.Vendor;
 import com.project.ws.repository.CartRepository;
 import com.project.ws.repository.CustomerAddressRepository;
 import com.project.ws.repository.CustomerBillingRepository;
+import com.project.ws.repository.CustomerRepository;
 import com.project.ws.repository.OrderLineItemRepository;
 import com.project.ws.repository.OrderRepository;
 import com.project.ws.repository.ProductRepository;
@@ -56,6 +57,8 @@ public class OrderActivity {
 	
 	private final CartRepository cartRepo;
 	
+	private final CustomerRepository custRepo;
+	
 	private final CustomerBillingRepository billRepo;
 	
 	private final CustomerAddressRepository addrRepo;
@@ -71,7 +74,7 @@ public class OrderActivity {
 	
 	
 	@Autowired
-	public OrderActivity(VendorRepository vendorRepo, OrderRepository orderRepo, CustomerBillingRepository billRepo, CustomerAddressRepository addrRepo, ProductRepository prodRepo, CartRepository cartRepo, OrderLineItemRepository orderLineRepo) {
+	public OrderActivity(VendorRepository vendorRepo, OrderRepository orderRepo, CustomerRepository custRepo, CustomerBillingRepository billRepo, CustomerAddressRepository addrRepo, ProductRepository prodRepo, CartRepository cartRepo, OrderLineItemRepository orderLineRepo) {
 		this.vendorRepo = vendorRepo;
 		this.orderRepo = orderRepo;
 		this.billRepo = billRepo;
@@ -79,6 +82,7 @@ public class OrderActivity {
 		this.prodRepo = prodRepo;
 		this.cartRepo = cartRepo;
 		this.orderLineRepo = orderLineRepo;
+		this.custRepo = custRepo;
 	}
 	
 	public StringRepresentation placeOrder(Integer customerId) {
@@ -94,7 +98,11 @@ public class OrderActivity {
 			billRepo.updateAmount(customerId, billId, orderAmount, "Debit");
 	
 			List<CustomerAddress> addrList = addrRepo.getAddress(customerId);
-			
+			if(addrList.size() == 0) {
+				stringRepresentation.setMessage("No Address found to ship the product to. Please update your profile");
+				return stringRepresentation;
+			}
+				
 			Integer addrId = addrList.get(0).getCustAddrId();
 			
 			Order order = new Order();
@@ -163,14 +171,28 @@ public class OrderActivity {
 	
 	public List<OrderRepresentation> allOrders(Integer customerId, String subset) {
 		List<Order> orderList = new ArrayList<Order>();
-		if(subset.equals("all"))
-			orderList = orderRepo.findAllOrders(customerId);
-		else if(subset.equals("active"))
-			orderList = orderRepo.findAllActiveOrders(customerId);
 		List<OrderRepresentation> resultList = new ArrayList<OrderRepresentation>();
-		for(Order o:orderList) {
-			resultList.add(mapRepresentation(o, false));
+		//check if the customer is vendor
+		Customer c = custRepo.findOne(customerId);
+		if(c.getActiveFlag().equals("V")) {
+			orderList = orderRepo.findAllOrdersForVendor(customerId);
+			for(Order o:orderList) {
+				resultList.add(mapRepresentation(o, true));
+			}
+			System.out.println("vendor orderlist" + orderList.size());
 		}
+		else {
+			if(subset.equals("all"))
+				orderList = orderRepo.findAllOrders(customerId);
+			else if(subset.equals("active"))
+				orderList = orderRepo.findAllActiveOrders(customerId);
+
+			for(Order o:orderList) {
+				resultList.add(mapRepresentation(o, false));
+			}
+			System.out.println("customer orderlist" + orderList.size());
+		}
+		System.out.println("resultList" + resultList.size());
 		return resultList;
 	}
 	
@@ -180,6 +202,7 @@ public class OrderActivity {
 		return mapRepresentation(order, false);
 	}
 	
+	//this method is only for internal checking if the orderId is valid
 	public Boolean validateOrder(Integer orderId) {
 		Order o = orderRepo.findOne(orderId);
 		if(o == null)
@@ -187,23 +210,14 @@ public class OrderActivity {
 		else 
 			return true;
 	}
-	
-	public List<OrderRepresentation> findAllOrdersForVendor(Integer vendorId, String orderStatus) {
-		List<Order> orderList = new ArrayList<Order>();
-		orderList = orderRepo.findAllOrdersForVendor(vendorId, orderStatus);
-		List<OrderRepresentation> resultList = new ArrayList<OrderRepresentation>();
-		for(Order o:orderList) {
-			resultList.add(mapRepresentation(o, true));
-		}
-		return resultList;
-	}
+
 	
 	public OrderRepresentation mapRepresentation(Order order, boolean showLinksForVendor) {
 		OrderRepresentation orderRepresentation = new OrderRepresentation();
 		orderRepresentation.setOrderId(order.getOrderId());
 		orderRepresentation.setOrderAmount(order.getOrderAmount());
 		orderRepresentation.setOrderDate(order.getOrderDate());
-		orderRepresentation.setOrderStatus(statusMap.get(order.getOrderStatus()));
+		orderRepresentation.setOrderStatus(order.getOrderStatus());
 		orderRepresentation.setOrderShipMethod(order.getOrderShipMethod());
 		calendar.setTime(order.getOrderDate());
 		calendar.add(Calendar.DATE, 5);
@@ -215,8 +229,10 @@ public class OrderActivity {
 		}
 		orderRepresentation.setLineItems(orderLineReprList);
 		if (showLinksForVendor) {
+			System.out.print("in vendor links");
 			setVendorLinks(orderRepresentation);
 		} else {
+			System.out.print("in customer links");
 			setCustomerLinks(orderRepresentation);
 		}
 		return orderRepresentation;

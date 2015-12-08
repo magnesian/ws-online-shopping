@@ -155,10 +155,9 @@ public class CustomerActivity {
 	
 	private void setLinks(CustomerRepresentation customerRepresentation) {
 		if (("V").equals(customerRepresentation.getActiveFlag())) {
-			Link addProduct = new Link("post", baseUrl + "/product/add", "addProduct", mediaType);
-			Link deleteProduct = new Link("get", baseUrl + "/product/viewProductsForVendor?vendorId=" + customerRepresentation.getCustId(), "viewProductsForVendor", mediaType);
-			Link viewActiveOrders = new Link("get", baseUrl + "/order/viewActiveOrdersForVendor/?vendorId=" + customerRepresentation.getCustId(), "viewActiveOrders", mediaType);
-			customerRepresentation.setLinks(addProduct, deleteProduct, viewActiveOrders);
+			Link showVendorProducts = new Link("get", baseUrl + "/products/vendor?vendorId=" + customerRepresentation.getCustId(), "showVendorProducts", mediaType);
+			Link showVendorOrders = new Link("get", baseUrl + "/order?customerId=" + customerRepresentation.getCustId(), "showVendorOrders", mediaType);
+			customerRepresentation.setLinks(showVendorProducts, showVendorOrders);
 		} else {
 			Link updateCustomer = new Link("put", baseUrl + "/customer/updateCustomer", "updateCustomer", mediaType);
 			Link viewAddress = new Link("get", baseUrl + "/customeraddress/?customerId=" + customerRepresentation.getCustId(), "viewAddress", mediaType);
@@ -166,7 +165,8 @@ public class CustomerActivity {
 			Link viewOrders = new Link("get", baseUrl + "/order?customerId=" + customerRepresentation.getCustId(), "viewOrders", mediaType);
 			Link viewCart = new Link("get", baseUrl + "/cart/view?customerId=" + customerRepresentation.getCustId(), "viewCart", mediaType);
 			Link showAll = new Link("get", baseUrl + "/products", "showAll", mediaType);
-			customerRepresentation.setLinks(updateCustomer, viewAddress, viewBilling, viewOrders, viewCart, showAll);
+			Link productSearch = new Link("get", baseUrl + "/product?name=", "productSearch", mediaType);
+			customerRepresentation.setLinks(updateCustomer, viewAddress, viewBilling, viewOrders, viewCart, showAll, productSearch);
 		}
 		
 	}

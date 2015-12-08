@@ -139,19 +139,6 @@ public class OrderController {
 		return orderRepresentation; 
 	}
 	
-	/*
-	 * GET to retrieve all orders by customerId
-	 */
-	@RequestMapping(value="/order/viewActiveOrdersForVendor", method=RequestMethod.GET, params="vendorId")
-	public @ResponseBody List<OrderRepresentation> findAllActiveOrdersForVendor(HttpServletRequest request) {
-		Integer vendorId = 0;
-		List<OrderRepresentation> orderRepr = new ArrayList<OrderRepresentation>();
-		vendorId = Integer.parseInt(request.getParameter("vendorId"));
-		if(vendorActivity.validateVendor(vendorId) == false)
-			throw new VendorIdNotFoundException(vendorId);
-		orderRepr = orderActivity.findAllOrdersForVendor(vendorId, "ACT");
-		return orderRepr;
-    }
 
 }
 

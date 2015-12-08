@@ -1,15 +1,10 @@
 package com.project.ws.representation;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.springframework.stereotype.Component;
 
-@XmlRootElement(name = "Review")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Component
 public class ReviewRepresentation extends AbstractRepresentation {
 
@@ -18,11 +13,21 @@ public class ReviewRepresentation extends AbstractRepresentation {
 	private String productName;
 	private String vendorName;
 	private String customerName;
+
+	private Integer productId;
 	
 	public ReviewRepresentation() {
 		
 	}
 	
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
 	public String getReviewDesc() {
 		return reviewDesc;
 	}

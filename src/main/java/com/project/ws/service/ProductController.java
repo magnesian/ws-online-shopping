@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableMap;
 import com.project.ws.domain.Product;
 import com.project.ws.representation.ProductRepresentation;
 import com.project.ws.representation.ProductRequest;
+import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.ProductActivity;
 import com.project.ws.workflow.VendorActivity;
 
@@ -62,7 +63,7 @@ public class ProductController {
 	/*
 	 * GET to search all products for a particular vendor id 
 	 */
-	@RequestMapping(value="/product/viewProductsForVendor", method=RequestMethod.GET, params="vendorId")
+	@RequestMapping(value="/products/vendor", method=RequestMethod.GET, params="vendorId")
     public List<ProductRepresentation> viewAllProductsForVendor(HttpServletRequest request) {
 		List<ProductRepresentation> productRepresentations = new ArrayList<ProductRepresentation>();
 			String vendorId = request.getParameter("vendorId");
@@ -86,19 +87,28 @@ public class ProductController {
     }
 
 	/*
+	 * Update a product
+	 */
+	@RequestMapping(value="/product", method=RequestMethod.PUT)
+    public StringRepresentation updateProduct(@RequestBody ProductRequest productRequest) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
+		if(productActivity.validateProduct(productRequest.getProductId()) == false) 
+			throw new ProductNotFoundException(productRequest.getProductId());
+		stringRepresentation = productActivity.updateProduct(productRequest);
+		return stringRepresentation;
+    }
+	
+	/*
 	 * DELETE to delete a product
 	 */
 	@RequestMapping(value="/product/delete", method=RequestMethod.DELETE, params="productId")
-    public String deleteProduct(HttpServletRequest request) {
-		int productDeleted = 0;
+    public StringRepresentation deleteProduct(HttpServletRequest request) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
 		Integer productId = Integer.parseInt(request.getParameter("productId"));
 		if(productActivity.validateProduct(productId) == false) 
 			throw new ProductNotFoundException(productId);
-		productDeleted = productActivity.deleteProduct(productId);
-		if (productDeleted>0) {
-			return "Successful delete product";
-		}
-		else return "Denied delating product";
+		stringRepresentation = productActivity.deleteProduct(productId);
+		return stringRepresentation;
     }
 
 }

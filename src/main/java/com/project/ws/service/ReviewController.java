@@ -54,35 +54,6 @@ public class ReviewController {
 		return reviewRepresentations;
     }
 	
-	/*
-	 * GET to retrieve average rating by productId
-	 */
-	@RequestMapping(value="/review/avgReview/product", method=RequestMethod.GET, params="productId")
-	public double getAvgRatingProduct(HttpServletRequest request) {
-		double avgRating = 0.00;
-		try {
-			int productId = Integer.parseInt(request.getParameter("productId"));
-			avgRating = reviewActivity.getAvgRatingProduct(productId);
-		} catch(RuntimeException e) {
-			throw new RuntimeException();
-		}
-		return avgRating;
-    }
-
-	/*
-	 * GET to retrieve average rating by vendorId
-	 */
-	@RequestMapping(value="/review/avgReview/vendor", method=RequestMethod.GET, params="vendorId")
-	public double getAvgRatingVendor(HttpServletRequest request) {
-		double avgRating = 0.00;
-		try {
-			int vendorId = Integer.parseInt(request.getParameter("vendorId"));
-			avgRating = reviewActivity.getAvgRatingVendor(vendorId);
-		} catch(RuntimeException e) {
-			throw new RuntimeException();
-		}
-		return avgRating;
-    }
 	
 	/*
 	 * DELETE to delete a review by reviewId

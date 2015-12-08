@@ -102,18 +102,6 @@ public class CustomerRepositoryImpl implements CustomerCustomRepository {
 		return count;
 	}
 	
-	@Override
-	@Transactional
-	public Integer changeStatus(Integer customerId, char flag) {
-		String SQL = "Update customer set active_flag = '" + flag + "' where cust_id = " + customerId ;
-		Integer count = em.createNativeQuery(SQL).executeUpdate();
-		if (count == 1) 
-			System.out.println("status updated successfully");
-		else
-			System.out.println("ERROR!!! Check logs/database");
-		return count;
-	}
-	
 
 	@Override
 	@Transactional

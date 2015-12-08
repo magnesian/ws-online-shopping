@@ -98,9 +98,27 @@ public class ProductActivity {
 		}
 		return mapProductRepresentation(product, vendorName, true);
 	}
+
+	public StringRepresentation updateProduct(ProductRequest productRequest) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
+		Integer count = prodRepo.updateProductPrice(productRequest.getProductId(), productRequest.getPrice());
+		Integer count1 = prodRepo.updateProductQuantity(productRequest.getProductId(), productRequest.getQuantity(), "add");
+		if(count == 1 && count1 == 1)
+			stringRepresentation.setMessage("Product updated Successfully");
+		else 
+			stringRepresentation.setMessage("Error Updating Product");
+		setLinks(stringRepresentation, productRequest.getVendorId());
+		return stringRepresentation;
+	}
 	
-	public Integer deleteProduct(Integer productId) {
-		return prodRepo.deleteProduct(productId);
+	public StringRepresentation deleteProduct(Integer productId) {
+		StringRepresentation stringRepresentation = new StringRepresentation();
+		Integer count = prodRepo.deleteProduct(productId);
+		if(count == 1)
+			stringRepresentation.setMessage("Product deleted Successfully");
+		else 
+			stringRepresentation.setMessage("Error Deleting Product");
+		return stringRepresentation;
 	}
 	
 	public Boolean validateProduct(Integer productId) {
@@ -113,12 +131,12 @@ public class ProductActivity {
 	
 	public Product mapRequest(ProductRequest request) {
 		product = new Product();
-		product.setName(request.getName());
+		product.setName(request.getProductName());
 		product.setPrice(request.getPrice());
 		product.setQuantity(request.getQuantity());
 		product.setVendorId(request.getVendorId());
-		product.setType(request.getType());
-		product.setDescription(request.getDescription());
+		product.setType(request.getProductType());
+		product.setDescription(request.getProductDescription());
 		return product;
 	}
 	
@@ -138,6 +156,11 @@ public class ProductActivity {
 		return prodRepresentation;
 	}
 
+	private void setLinks(StringRepresentation stringRepresentation, Integer vendorId) {
+		Link showVendorProducts = new Link("get", baseUrl + "/products/vendor?vendorId=" + vendorId, "showVendorProducts", mediaType);
+		stringRepresentation.setLinks(showVendorProducts);
+	}
+	
 	private void setLinksForCustomer(ProductRepresentation prodRepresentation) {
 		Link addCart = new Link("post", baseUrl + "/cart/add", "addCart", mediaType);
 		Link reviewsToShow = new Link("get", baseUrl + "/review/view?productId=" + prodRepresentation.getProductId(), "showReviews", mediaType);
@@ -147,7 +170,9 @@ public class ProductActivity {
 	
 	private void setLinksForVendor(ProductRepresentation prodRepresentation) {
 		Link addProduct = new Link("post", baseUrl + "/product/add", "addProduct", mediaType);
+		Link reviewsToShow = new Link("get", baseUrl + "/review/view?productId=" + prodRepresentation.getProductId(), "showReviews", mediaType);
 		Link deleteProduct = new Link("delete", baseUrl + "/product/delete?productId=" + prodRepresentation.getProductId(), "deleteProduct", mediaType);
-		prodRepresentation.setLinks(addProduct, deleteProduct);
+		Link updateProduct = new Link("put", baseUrl + "/product?productId=" + prodRepresentation.getProductId(), "updateProduct", mediaType);
+		prodRepresentation.setLinks(addProduct, deleteProduct, updateProduct, reviewsToShow);
 	}
 }

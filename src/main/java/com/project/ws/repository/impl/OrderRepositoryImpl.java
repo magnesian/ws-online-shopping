@@ -52,9 +52,9 @@ public class OrderRepositoryImpl implements OrderCustomRepository {
 	}
 	
 	@Override
-	public List<Order> findAllOrdersForVendor(Integer vendorId, String orderStatus) {
+	public List<Order> findAllOrdersForVendor(Integer vendorId) {
 		String SQL = "select distinct o.* from order_details o, order_line_item ol, product p where o.order_id = ol.order_id"
-				+ " and ol.product_id = p.product_id and p.vendor_id = '" + vendorId + "' and o.status_cd = '" + orderStatus + "'";
+				+ " and ol.product_id = p.product_id and p.vendor_id = " + vendorId;
 		Query query = em.createNativeQuery(SQL, Order.class);
 		List<Order> resultList = query.getResultList();
 		return resultList;

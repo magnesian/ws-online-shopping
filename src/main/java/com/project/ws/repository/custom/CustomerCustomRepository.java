@@ -17,7 +17,6 @@ public interface CustomerCustomRepository {
 	public Integer updateEmail(Integer customerId, String email);
 	public Integer updateCustomer(Integer customerId, String firstName, String lastName, String email);
 	public Integer updatePassword(Integer customerId, String password);
-	public Integer changeStatus(Integer customerId, char flag);
 	public Integer deleteCustomer(Integer customerId);
 
 }
