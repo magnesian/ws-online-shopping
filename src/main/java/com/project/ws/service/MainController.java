@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.ImmutableMap;
 import com.project.ws.representation.StringRepresentation;
 
-@CrossOrigin
 @Controller
 @RequestMapping(value="/")
 public class MainController implements ErrorController {

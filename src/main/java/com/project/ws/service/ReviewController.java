@@ -25,7 +25,6 @@ import com.project.ws.representation.ReviewRequest;
 import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.ReviewActivity;
 
-@CrossOrigin
 @RestController
 public class ReviewController {
 

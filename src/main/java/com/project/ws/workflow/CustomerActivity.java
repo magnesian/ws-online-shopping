@@ -29,11 +29,11 @@ public class CustomerActivity {
 	@Autowired
 	CustomerRepresentation customerRepresentation;
 	
-	@Value("${baseURL}")
-	private String baseUrl;
+//	@Value("${baseURL}")
+	private String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	
-	@Value("${mediaType}")
-	private String mediaType;
+//	@Value("${mediaType}")
+	private String mediaType = "mediaType";
 	
 	@Autowired
 	CustomerActivity(CustomerRepository custRepo) {

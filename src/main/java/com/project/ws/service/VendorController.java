@@ -26,7 +26,6 @@ import com.project.ws.representation.VendorRepresentation;
 import com.project.ws.representation.VendorRequest;
 import com.project.ws.workflow.VendorActivity;
 
-@CrossOrigin
 @RestController
 public class VendorController {
 

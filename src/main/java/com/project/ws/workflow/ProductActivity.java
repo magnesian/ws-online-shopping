@@ -29,11 +29,11 @@ public class ProductActivity {
 
 	private final ProductRepository prodRepo;
 	private final VendorRepository vendorRepo;
-	@Value("${baseURL}")
-	private String baseUrl;
+//	@Value("${baseURL}")
+	private String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
 	
-	@Value("${mediaType}")
-	private String mediaType;
+//	@Value("${mediaType}")
+	private String mediaType = "mediaType";
 	
 	@Autowired
 	Product product;

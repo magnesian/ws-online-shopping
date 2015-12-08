@@ -33,7 +33,7 @@ import com.project.ws.workflow.CustomerActivity;
  * This is customer spring controller which has methods 
  * that specify the end points for the customer web service.
  */
-@CrossOrigin
+
 @RestController
 public class CustomerController {
 	

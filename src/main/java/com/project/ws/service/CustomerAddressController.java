@@ -27,7 +27,6 @@ import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.CustomerActivity;
 import com.project.ws.workflow.CustomerAddressActivity;
 
-@CrossOrigin
 @RestController
 public class CustomerAddressController {
 

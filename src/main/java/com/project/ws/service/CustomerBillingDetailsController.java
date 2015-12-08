@@ -25,7 +25,6 @@ import com.project.ws.representation.StringRepresentation;
 import com.project.ws.workflow.CustomerActivity;
 import com.project.ws.workflow.CustomerBillingActivity;
 
-@CrossOrigin
 @RestController
 public class CustomerBillingDetailsController {
 

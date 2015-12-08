@@ -32,7 +32,6 @@ import com.project.ws.workflow.OrderActivity;
 import com.project.ws.workflow.ProductActivity;
 import com.project.ws.workflow.VendorActivity;
 
-@CrossOrigin
 @RestController
 public class OrderController {
 	

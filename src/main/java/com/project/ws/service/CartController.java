@@ -21,7 +21,6 @@ import com.project.ws.workflow.CustomerActivity;
 import com.project.ws.workflow.OrderActivity;
 import com.project.ws.workflow.ProductActivity;
 
-@CrossOrigin
 @RestController
 public class CartController {
 
