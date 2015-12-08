@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,8 +70,11 @@ public class OrderActivity {
 	
 	private final VendorRepository vendorRepo;
 	
-	private final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
-	private final String mediaType = "application/json";
+	@Value("${baseURL}")
+	private String baseUrl;
+	
+	@Value("${mediaType}")
+	private String mediaType;
 	
 	@Autowired
 	public OrderActivity(VendorRepository vendorRepo, OrderRepository orderRepo, CustomerRepository custRepo, CustomerBillingRepository billRepo, CustomerAddressRepository addrRepo, ProductRepository prodRepo, CartRepository cartRepo, OrderLineItemRepository orderLineRepo) {

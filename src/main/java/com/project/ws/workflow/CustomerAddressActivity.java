@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,11 @@ import com.project.ws.representation.StringRepresentation;
 @Service
 public class CustomerAddressActivity {
 
-	private static final String baseUrl = "https://sam-lakeshoremart.herokuapp.com";
-	private static final String mediaType = "application/json";
+	@Value("${baseURL}")
+	private String baseUrl;
+	
+	@Value("${mediaType}")
+	private String mediaType;
 	
 	private final CustomerAddressRepository addrRepo;
 	
